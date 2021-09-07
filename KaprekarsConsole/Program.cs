@@ -1,32 +1,25 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace KaprekarsConsole
 {
     class Program
     {
         const int kaprekar = 6174;
-        public static int[] bannedNumbers = { 1111, 2222, 3333, 4444, 5555, 6666, 7777, 8888 };
         static void Main(string[] args)
         {
-            for (int i = 9210; i < 9230; i++)
-            {
-                Console.WriteLine($"\nCurrent number: {i}, Iterations = {CountIterations(i)}");
-            }
-            Console.ReadKey();
+            WriteResultsToFile();
+            
         }
 
+        // ================== methods =======================
         private static int CountIterations(int inputNumber)
         {
             int counter = 0;
             int currentCalculationOutput = inputNumber;
 
-            //if (Array.IndexOf(bannedNumbers, inputNumber) != -1)
-            //{
-            //    return counter;
-            //}
-            //else
-            //{
                 do
                 {
                     currentCalculationOutput = NextIterationNumber(currentCalculationOutput);
@@ -39,7 +32,6 @@ namespace KaprekarsConsole
                 } while (currentCalculationOutput != kaprekar); //(counter < 5);//
 
                 return counter;
-            //}
         }
         private static int NextIterationNumber(int inputNumber)
         {
@@ -64,5 +56,35 @@ namespace KaprekarsConsole
             }
             return largeNumber - smallNumber;
         }
+
+        //=====================  file handling methods ===================
+
+        // Create file and put in headings
+        static void WriteResultsToFile()
+        {
+            string currentDirectory = Directory.GetCurrentDirectory();
+            File.WriteAllText(@"kaprekas_results.txt", string.Format("Number,Iterations\n"));
+            int iterations = 0;
+
+            for (int i = 1000; i < 9999; i++)
+            {
+                iterations = CountIterations(i);
+                Console.WriteLine($"\nCurrent number: {i}, Iterations = {iterations}");
+                File.AppendAllText(@"kaprekas_results.txt", string.Format($"{i},{iterations}\n"));
+            }
+            Console.WriteLine(File.ReadAllText($"{currentDirectory}\\kaprekas_results.txt"));
+            Console.ReadKey();
+        }
+
+
+
+        //// Writes the calculated result to the txt file
+        //private static void WriteResultsToTextFile(string salesTotalDir, decimal salesTotalAsDecimal)
+        //{
+        //    File.AppendAllText(Path.Combine(salesTotalDir, "totals.txt"), $"{salesTotalAsDecimal}{Environment.NewLine}");
+        //    Console.WriteLine("\nFile contents are now:");
+        //    string fileContents = File.ReadAllText(@"SalesTotalDir\totals.txt");
+        //    Console.WriteLine(fileContents);
+    //}
     }
 }
