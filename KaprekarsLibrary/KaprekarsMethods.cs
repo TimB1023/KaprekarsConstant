@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KaprekarsConsole
+namespace KaprekarsLibrary
 {
-    class KaprekarsMethods
+    public class KaprekarsMethods
     {
         //=====================  file handling methods ===================
 
