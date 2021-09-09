@@ -11,7 +11,10 @@ namespace KaprekarsLibrary
     {
         //=====================  file handling methods ===================
 
-        // Create file and put in headings
+        
+
+
+        // Create file and put in headings depreacted for WinForm
         public static void WriteResultsToFile()
         {
             string currentDirectory = Directory.GetCurrentDirectory();
