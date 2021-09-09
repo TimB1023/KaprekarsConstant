@@ -21,11 +21,11 @@ namespace KaprekarsLibrary
             for (int i = 1000; i < 9999; i++)
             {
                 iterations = CountIterations(i);
-                Console.WriteLine($"\nCurrent number: {i}, Iterations = {iterations}");
+                //Console.WriteLine($"\nCurrent number: {i}, Iterations = {iterations}");
                 File.AppendAllText(@"kaprekas_results.txt", string.Format($"{i},{iterations}\n"));
             }
-            Console.WriteLine(File.ReadAllText($"{currentDirectory}\\kaprekas_results.txt"));
-            Console.ReadKey();
+            //Console.WriteLine(File.ReadAllText($"{currentDirectory}\\kaprekas_results.txt"));
+            //Console.ReadKey();
         }
         // ================== calculation methods =======================
         public static int CountIterations(int inputNumber)

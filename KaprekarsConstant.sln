@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KaprekarsConsole", "Kapreka
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KaprekarsLibrary", "KaprekarsLibrary\KaprekarsLibrary.csproj", "{37CE0751-BEE8-4015-A6C0-364A0F1CC1BD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KaprekarsWinForm", "KaprekarsWinForm\KaprekarsWinForm.csproj", "{4A67F992-6F61-4568-A7EA-1082668DB4D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{37CE0751-BEE8-4015-A6C0-364A0F1CC1BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37CE0751-BEE8-4015-A6C0-364A0F1CC1BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37CE0751-BEE8-4015-A6C0-364A0F1CC1BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A67F992-6F61-4568-A7EA-1082668DB4D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A67F992-6F61-4568-A7EA-1082668DB4D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A67F992-6F61-4568-A7EA-1082668DB4D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A67F992-6F61-4568-A7EA-1082668DB4D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
