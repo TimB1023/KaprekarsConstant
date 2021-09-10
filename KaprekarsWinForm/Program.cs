@@ -19,6 +19,7 @@ namespace KaprekarsWinForm
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new KaprekarsForm());
+            Application.Exit();
                         
         }
     }
