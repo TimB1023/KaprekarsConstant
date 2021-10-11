@@ -14,22 +14,67 @@ namespace KaprekarsLibrary
         
 
 
-        // Create file and put in headings depreacted for WinForm
-        public static void WriteResultsToFile()
+        // Create file and put in headings. Depreacted for WinForm
+        //public static void WriteResultsToFile()
+        //{
+        //    //Should split calc and writing to file. Create public list?
+
+        //    string currentDirectory = Directory.GetCurrentDirectory();
+        //    File.WriteAllText(@"kaprekas_results.txt", string.Format("Number,Iterations\n"));
+
+        //    int iterations = 0;
+
+        //    for (int i = 1000; i < 9999; i++)
+        //    {
+        //        iterations = CountIterations(i);
+        //        //Console.WriteLine($"\nCurrent number: {i}, Iterations = {iterations}");
+        //        File.AppendAllText(@"kaprekas_results.txt", string.Format($"{i},{iterations}\n"));
+        //    }
+        //    //Console.WriteLine(File.ReadAllText($"{currentDirectory}\\kaprekas_results.txt"));
+        //    //Console.ReadKey();
+        //}
+        public class FourDigitNumber
         {
-            string currentDirectory = Directory.GetCurrentDirectory();
-            File.WriteAllText(@"kaprekas_results.txt", string.Format("Number,Iterations\n"));
+            public int Value { get; set; }
+            public int Iterations { get; set; }
+        }
+        public static void InitialiseNumbersList()
+        {
+            List<FourDigitNumber> fourDigitNumbers = new List<FourDigitNumber>();
+        }
+
+
+        // Initialise files and folders
+        public static void InitialiseFile()
+        {
+            //Initialise results file and create headings
+            File.WriteAllText(@"kaprekas_results.csv", string.Format("Number,Iterations\n"));
+        }
+
+        // Update file with results
+        public static void WriteResultsToFile(Action<string>displayCurrentValue)
+        {
+            // Should split into generating aray or list, then saving to file
+            // Multi-dimensional lists (lists of lists) are possble better
+            // to create a class with number and iterations
             int iterations = 0;
 
             for (int i = 1000; i < 9999; i++)
             {
-                iterations = CountIterations(i);
-                //Console.WriteLine($"\nCurrent number: {i}, Iterations = {iterations}");
-                File.AppendAllText(@"kaprekas_results.txt", string.Format($"{i},{iterations}\n"));
+                //Calculate iterations for i
+                iterations = KaprekarsMethods.CountIterations(i);
+
+                //Display results on form
+
+                var currentValueText = $"Current number: {i}, Iterations = {iterations}";
+
+                displayCurrentValue(currentValueText);
+
+                //Add results to result file
+                File.AppendAllText(@"kaprekas_results.csv", string.Format($"{i},{iterations}\n"));
             }
-            //Console.WriteLine(File.ReadAllText($"{currentDirectory}\\kaprekas_results.txt"));
-            //Console.ReadKey();
         }
+
         // ================== calculation methods =======================
         public static int CountIterations(int inputNumber)
         {
@@ -57,9 +102,13 @@ namespace KaprekarsLibrary
             string numberAsString = inputNumber.ToString();
 
             //Takes each digit and converts it to a single char string array
+            // => Lambda function takes each x and converts it into a string
+            // SAves using a loop
             string[] numberAsArray = numberAsString.Select(x => x.ToString()).ToArray();
 
-            //Don't understand the x => x, but this sorts the array
+            //Don't understand why the lambda expresseion x => x is needed, but this sorts the array
+            //I think it is again used as a shorthand for a loop
+            //Both this and the previous could probably have been combined into one long command
             numberAsArray = numberAsArray.OrderByDescending(x => x).ToArray();
 
             //Generate large number
@@ -70,6 +119,7 @@ namespace KaprekarsLibrary
             numberAsArray = numberAsArray.OrderBy(x => x).ToArray();
             string smallNumberAsString = String.Concat(numberAsArray);
             smallNumber = Convert.ToInt32(smallNumberAsString);
+
             if (largeNumber - smallNumber == 0) //Would lead to an infinite loop
             {
                 return -1;

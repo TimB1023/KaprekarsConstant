@@ -23,60 +23,55 @@ namespace KaprekarsWinForm
         public KaprekarsForm()
         {
             InitializeComponent();
-            initialiseFoldersAndFiles();
-
+            updateDisplayedFolder();
+            KaprekarsMethods.InitialiseFile();
+            KaprekarsMethods.InitialiseNumbersList();
             calcOutputTextBox.Text = "Results Coming...";
-            
-
         }
 
-        // Initialise files and folders
-        public void initialiseFoldersAndFiles()
+
+        public void updateDisplayedFolder()
         {
             string currentDirectory = Directory.GetCurrentDirectory(); // Overwritten as needed on button click
             currentFolderLabel.Text += currentDirectory;
-
-            //Initialise results file
-            File.WriteAllText(@"kaprekas_results.csv", string.Format("Number,Iterations\n"));
-
         }
 
-
-        // Create file, put in headings and display each line in the text box
-        public void WriteResultsToFileAndForm()
+        public void displayCurrentValue(string currentValueText)
         {
-            //string currentDirectory = Directory.GetCurrentDirectory(); // Overwritten as needed on button click
+            currentValueLabel.Text = currentValueText;
+            currentValueLabel.Refresh();
+        }
 
-
-            //Initialise results file
-            //File.WriteAllText(@"kaprekas_results.csv", string.Format("Number,Iterations\n"));
-
-
-            int iterations = 0;
-
-            for (int i = 1000; i < 9999; i++)
-            {
-                //Calculate iterations for i
-                iterations = KaprekarsMethods.CountIterations(i);
-
-                //Display results on form
-                //Console.WriteLine($"\nCurrent number: {i}, Iterations = {iterations}");
-
-                currentValueLabel.Text = $"Current number: {i}, Iterations = {iterations}";
-                //calcOutputTextBox.Text += $"Current number: {i}, Iterations = {iterations}";
-                //calcOutputTextBox.Text += $"{Environment.NewLine}";
-
-                currentValueLabel.Refresh();
-
-                //Add results to result file
-                File.AppendAllText(@"kaprekas_results.csv", string.Format($"{i},{iterations}\n"));
-            }
+        public void displayResultsFileInTextBox()
+        {
             var fileAsString = File.ReadAllText($"{Directory.GetCurrentDirectory()}\\kaprekas_results.csv");
             var fileAsStringWithCorrectCR = fileAsString.Replace("\n", Environment.NewLine).Replace(",", "\t");
-            //var fileAsStringWithTabs = fileAsStringWithCorrectCR.Replace("")
             calcOutputTextBox.Text = fileAsStringWithCorrectCR;
-
         }
+
+        //// Update file with results
+        //public void WriteResultsToFile()
+        //{
+        //    // Should split into generating aray or list, then saving to file
+        //    // Multi-dimensional lists (lists of lists) are possble better
+        //    // to create a class with number and iterations
+        //    int iterations = 0;
+
+        //    for (int i = 1000; i < 9999; i++)
+        //    {
+        //        //Calculate iterations for i
+        //        iterations = KaprekarsMethods.CountIterations(i);
+
+        //        //Display results on form
+                
+        //        var currentValueText = $"Current number: {i}, Iterations = {iterations}";
+
+        //        displayCurrentValue(currentValueText);
+
+        //        //Add results to result file
+        //        File.AppendAllText(@"kaprekas_results.csv", string.Format($"{i},{iterations}\n"));
+        //    }
+        //}
 
         private void chooseFolderButton_Click(object sender, EventArgs e)
         {
@@ -86,14 +81,14 @@ namespace KaprekarsWinForm
                 string chosenFolder = $"{Directory.GetCurrentDirectory()}";
                 chosenFolder = folderBrowserDialog1.SelectedPath;
                 Directory.SetCurrentDirectory(chosenFolder);
-                initialiseFoldersAndFiles(); //Resets folder and initialises new file
-                currentFolderLabel.Text = chosenFolder;
+                updateDisplayedFolder(); //Resets folder and initialises new file
             }
         }
 
         private void startCalcButton_Click(object sender, EventArgs e)
         {
-            WriteResultsToFileAndForm();
+            KaprekarsMethods.WriteResultsToFile(displayCurrentValue); //DisplayCurrentValue is an Action delegate
+            displayResultsFileInTextBox();
         }
 
         private void openFileInStandardAppButton_Click(object sender, EventArgs e)
