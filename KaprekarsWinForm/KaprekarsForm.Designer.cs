@@ -51,7 +51,7 @@ namespace KaprekarsWinForm
             this.chooseFolderButton.TabIndex = 0;
             this.chooseFolderButton.Text = "Click here to change output folder";
             this.chooseFolderButton.UseVisualStyleBackColor = true;
-            this.chooseFolderButton.Click += new System.EventHandler(this.chooseFolderButton_Click);
+            this.chooseFolderButton.Click += new System.EventHandler(this.ChooseFolderButton_Click);
             // 
             // calcOutputTextBox
             // 
@@ -72,7 +72,7 @@ namespace KaprekarsWinForm
             this.startCalcButton.TabIndex = 2;
             this.startCalcButton.Text = "Click here to start the calculation";
             this.startCalcButton.UseVisualStyleBackColor = true;
-            this.startCalcButton.Click += new System.EventHandler(this.startCalcButton_Click);
+            this.startCalcButton.Click += new System.EventHandler(this.StartCalcButton_Click);
             // 
             // currentValueLabel
             // 
@@ -119,7 +119,7 @@ namespace KaprekarsWinForm
             this.openFileInStandardAppButton.TabIndex = 2;
             this.openFileInStandardAppButton.Text = "Click here to open file in standard csv application";
             this.openFileInStandardAppButton.UseVisualStyleBackColor = true;
-            this.openFileInStandardAppButton.Click += new System.EventHandler(this.openFileInStandardAppButton_Click);
+            this.openFileInStandardAppButton.Click += new System.EventHandler(this.OpenFileInStandardAppButton_Click);
             // 
             // label1
             // 
@@ -138,7 +138,7 @@ namespace KaprekarsWinForm
             this.openFileInExplorerButton.TabIndex = 2;
             this.openFileInExplorerButton.Text = "Click here to see file in Explorer";
             this.openFileInExplorerButton.UseVisualStyleBackColor = true;
-            this.openFileInExplorerButton.Click += new System.EventHandler(this.openFileInExplorerButton_Click);
+            this.openFileInExplorerButton.Click += new System.EventHandler(this.OpenFileInExplorerButton_Click);
             // 
             // closeButton
             // 
@@ -148,7 +148,7 @@ namespace KaprekarsWinForm
             this.closeButton.TabIndex = 21;
             this.closeButton.Text = "Close";
             this.closeButton.UseVisualStyleBackColor = true;
-            this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
+            this.closeButton.Click += new System.EventHandler(this.CloseButton_Click);
             // 
             // KaprekarsForm
             // 

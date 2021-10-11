@@ -33,49 +33,58 @@ namespace KaprekarsLibrary
         //    //Console.WriteLine(File.ReadAllText($"{currentDirectory}\\kaprekas_results.txt"));
         //    //Console.ReadKey();
         //}
-        public class FourDigitNumber
+        public class FourDigitNumber // To create a list of results
         {
             public int Value { get; set; }
             public int Iterations { get; set; }
         }
-        public static void InitialiseNumbersList()
-        {
-            List<FourDigitNumber> fourDigitNumbers = new List<FourDigitNumber>();
-        }
-
+        //public static void InitialiseNumbersList()
+        //{
+        //    List<FourDigitNumber> fourDigitNumbers = new List<FourDigitNumber>();
+        //}
 
         // Initialise files and folders
         public static void InitialiseFile()
         {
             //Initialise results file and create headings
+            File.WriteAllText(@"kaprekas_results.csv", string.Empty); //Empties file
             File.WriteAllText(@"kaprekas_results.csv", string.Format("Number,Iterations\n"));
         }
-
+        // ================== calculation methods =======================
         // Update file with results
         public static void WriteResultsToFile(Action<string>displayCurrentValue)
         {
-            // Should split into generating aray or list, then saving to file
-            // Multi-dimensional lists (lists of lists) are possble better
-            // to create a class with number and iterations
+
             int iterations = 0;
+
+            List<FourDigitNumber> fourDigitNumbers = new List<FourDigitNumber>();
 
             for (int i = 1000; i < 9999; i++)
             {
                 //Calculate iterations for i
                 iterations = KaprekarsMethods.CountIterations(i);
 
-                //Display results on form
+                FourDigitNumber newNumber = new FourDigitNumber();
+                newNumber.Value = i;
+                newNumber.Iterations = iterations;
+                fourDigitNumbers.Add(newNumber);
+
+                //Display current result on form
 
                 var currentValueText = $"Current number: {i}, Iterations = {iterations}";
-
                 displayCurrentValue(currentValueText);
 
                 //Add results to result file
-                File.AppendAllText(@"kaprekas_results.csv", string.Format($"{i},{iterations}\n"));
+                //File.AppendAllText(@"kaprekas_results.csv", string.Format($"{i},{iterations}\n"));
+            }
+
+            foreach (var fourDigitNumber in fourDigitNumbers) //saving list of numbers to file
+            {
+                string lineText = $"{fourDigitNumber.Value},{fourDigitNumber.Iterations}\n";
+                File.AppendAllText(@"kaprekas_results.csv", lineText); 
             }
         }
 
-        // ================== calculation methods =======================
         public static int CountIterations(int inputNumber)
         {
             int counter = 0;
@@ -95,6 +104,7 @@ namespace KaprekarsLibrary
 
             return counter;
         }
+
         public static int NextIterationNumber(int inputNumber)
         {
             int largeNumber = 0;
