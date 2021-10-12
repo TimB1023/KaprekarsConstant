@@ -9,39 +9,13 @@ namespace KaprekarsLibrary
 {
     public class KaprekarsMethods
     {
-        //=====================  file handling methods ===================
+        static List<FourDigitNumber> fourDigitNumbers = new List<FourDigitNumber>(); // Makes list<> available to all methods below
 
-        
-
-
-        // Create file and put in headings. Depreacted for WinForm
-        //public static void WriteResultsToFile()
-        //{
-        //    //Should split calc and writing to file. Create public list?
-
-        //    string currentDirectory = Directory.GetCurrentDirectory();
-        //    File.WriteAllText(@"kaprekas_results.txt", string.Format("Number,Iterations\n"));
-
-        //    int iterations = 0;
-
-        //    for (int i = 1000; i < 9999; i++)
-        //    {
-        //        iterations = CountIterations(i);
-        //        //Console.WriteLine($"\nCurrent number: {i}, Iterations = {iterations}");
-        //        File.AppendAllText(@"kaprekas_results.txt", string.Format($"{i},{iterations}\n"));
-        //    }
-        //    //Console.WriteLine(File.ReadAllText($"{currentDirectory}\\kaprekas_results.txt"));
-        //    //Console.ReadKey();
-        //}
-        public class FourDigitNumber // To create a list of results
+        public class FourDigitNumber // Class create a list<FourDigitNumber> of results
         {
             public int Value { get; set; }
             public int Iterations { get; set; }
         }
-        //public static void InitialiseNumbersList()
-        //{
-        //    List<FourDigitNumber> fourDigitNumbers = new List<FourDigitNumber>();
-        //}
 
         // Initialise files and folders
         public static void InitialiseFile()
@@ -50,38 +24,36 @@ namespace KaprekarsLibrary
             File.WriteAllText(@"kaprekas_results.csv", string.Empty); //Empties file
             File.WriteAllText(@"kaprekas_results.csv", string.Format("Number,Iterations\n"));
         }
-        // ================== calculation methods =======================
-        // Update file with results
-        public static void WriteResultsToFile(Action<string>displayCurrentValue)
+        
+        public static void GenerateResults(Action<string> displayCurrentValue)
         {
-
-            int iterations = 0;
-
-            List<FourDigitNumber> fourDigitNumbers = new List<FourDigitNumber>();
-
             for (int i = 1000; i < 9999; i++)
             {
                 //Calculate iterations for i
-                iterations = KaprekarsMethods.CountIterations(i);
+                int iterations = KaprekarsMethods.CountIterations(i);
 
-                FourDigitNumber newNumber = new FourDigitNumber();
-                newNumber.Value = i;
-                newNumber.Iterations = iterations;
-                fourDigitNumbers.Add(newNumber);
+                //FourDigitNumber newNumber = new FourDigitNumber();
+                //newNumber.Value = i;
+                //newNumber.Iterations = iterations;
+                //fourDigitNumbers.Add(newNumber);
+
+                //This line replaces the four lines above. Uses anonymous instance as no name is needed
+                fourDigitNumbers.Add(new FourDigitNumber { Value = i, Iterations = iterations });
 
                 //Display current result on form
 
                 var currentValueText = $"Current number: {i}, Iterations = {iterations}";
                 displayCurrentValue(currentValueText);
-
-                //Add results to result file
-                //File.AppendAllText(@"kaprekas_results.csv", string.Format($"{i},{iterations}\n"));
             }
 
-            foreach (var fourDigitNumber in fourDigitNumbers) //saving list of numbers to file
+        }
+
+        public static void WriteResultsToFile() //saving list of numbers to file
+        {
+            foreach (var fourDigitNumber in fourDigitNumbers) 
             {
                 string lineText = $"{fourDigitNumber.Value},{fourDigitNumber.Iterations}\n";
-                File.AppendAllText(@"kaprekas_results.csv", lineText); 
+                File.AppendAllText(@"kaprekas_results.csv", lineText);
             }
         }
 

@@ -20,7 +20,7 @@ namespace KaprekarsWinForm
     public partial class KaprekarsForm : Form
     {
         // Starts and initialises form and files
-        public KaprekarsForm()
+        public KaprekarsForm() // Initialises program
         {
             InitializeComponent();
             UpdateDisplayedFolder();
@@ -81,7 +81,8 @@ namespace KaprekarsWinForm
 
         private void StartCalcButton_Click(object sender, EventArgs e)
         {
-            KaprekarsMethods.WriteResultsToFile(DisplayCurrentValue); //DisplayCurrentValue is an Action delegate
+            KaprekarsMethods.GenerateResults(DisplayCurrentValue);//DisplayCurrentValue is an Action delegate
+            KaprekarsMethods.WriteResultsToFile(); 
             DisplayResultsFileInTextBox();
         }
 
